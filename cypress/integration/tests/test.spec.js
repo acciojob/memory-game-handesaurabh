@@ -7,22 +7,24 @@ describe('Memory game', () => {
   it('Validating different modes', () => {
     cy.visit('http://localhost:8080');
     
-    // Test Easy - NO RESET NEEDED (test runs fast)
-    cy.get('input#easy').check();
+    // Test Easy mode - directly check the radio button
+    cy.get('input#easy').should('exist').check();
     cy.contains('Easy Mode').should('be.visible');
     cy.get('.tile').should('have.length', 8);
     
-    cy.visit('http://localhost:8080'); // Fresh visit instead of reset
+    // Navigate away and back for a fresh start (instead of reset)
+    cy.visit('http://localhost:8080');
     
-    // Test Normal
-    cy.get('input#normal').check();
+    // Test Normal mode
+    cy.get('input#normal').should('exist').check();
     cy.contains('Normal Mode').should('be.visible');
     cy.get('.tile').should('have.length', 16);
     
-    cy.visit('http://localhost:8080'); // Fresh visit
+    // Navigate away and back for a fresh start
+    cy.visit('http://localhost:8080');
     
-    // Test Hard
-    cy.get('input#hard').check();
+    // Test Hard mode
+    cy.get('input#hard').should('exist').check();
     cy.contains('Hard Mode').should('be.visible');
     cy.get('.tile').should('have.length', 32);
   });

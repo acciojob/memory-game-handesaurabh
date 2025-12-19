@@ -1,15 +1,15 @@
-PASS src/components/App.test.js
+PASS src/components/App.test.js (5.991 s)
   Memory Game Tests
-    √ should render the landing page with difficulty options (15 ms)
+    √ should render the landing page with difficulty options (25 ms)
     √ should start the game when a difficulty level is selected (6 ms)
-    √ should start the game when Start Game button is clicked (5 ms)
-    √ should display the correct number of tiles for easy mode (2 ms)
+    √ should start the game when Start Game button is clicked (9 ms)
+    √ should display the correct number of tiles for easy mode (4 ms)
     √ should display the correct number of tiles for normal mode (4 ms)
-    √ should display the correct number of tiles for hard mode (4 ms)
-    √ should reset the game when Reset Game button is clicked (4 ms)
+    √ should display the correct number of tiles for hard mode (2 ms)
+    √ should reset the game when Reset Game button is clicked (5 ms)
 
 Test Suites: 1 passed, 1 total
 Tests:       7 passed, 7 total
 Snapshots:   0 total
-Time:        4.207 s
+Time:        9.902 s
 Ran all test suites.

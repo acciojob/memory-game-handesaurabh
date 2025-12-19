@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="7" failures="0" time="4.209">
-  <testsuite name="Memory Game Tests" errors="0" failures="0" skipped="0" timestamp="2025-12-19T16:57:21" time="2.414" tests="7">
-    <testcase classname="Memory Game Tests should render the landing page with difficulty options" name="Memory Game Tests should render the landing page with difficulty options" time="0.015">
+<testsuites name="jest tests" tests="7" failures="0" time="9.907">
+  <testsuite name="Memory Game Tests" errors="0" failures="0" skipped="0" timestamp="2025-12-19T17:28:38" time="5.991" tests="7">
+    <testcase classname="Memory Game Tests should render the landing page with difficulty options" name="Memory Game Tests should render the landing page with difficulty options" time="0.025">
     </testcase>
     <testcase classname="Memory Game Tests should start the game when a difficulty level is selected" name="Memory Game Tests should start the game when a difficulty level is selected" time="0.006">
     </testcase>
-    <testcase classname="Memory Game Tests should start the game when Start Game button is clicked" name="Memory Game Tests should start the game when Start Game button is clicked" time="0.005">
+    <testcase classname="Memory Game Tests should start the game when Start Game button is clicked" name="Memory Game Tests should start the game when Start Game button is clicked" time="0.009">
     </testcase>
-    <testcase classname="Memory Game Tests should display the correct number of tiles for easy mode" name="Memory Game Tests should display the correct number of tiles for easy mode" time="0.002">
+    <testcase classname="Memory Game Tests should display the correct number of tiles for easy mode" name="Memory Game Tests should display the correct number of tiles for easy mode" time="0.004">
     </testcase>
     <testcase classname="Memory Game Tests should display the correct number of tiles for normal mode" name="Memory Game Tests should display the correct number of tiles for normal mode" time="0.004">
     </testcase>
-    <testcase classname="Memory Game Tests should display the correct number of tiles for hard mode" name="Memory Game Tests should display the correct number of tiles for hard mode" time="0.004">
+    <testcase classname="Memory Game Tests should display the correct number of tiles for hard mode" name="Memory Game Tests should display the correct number of tiles for hard mode" time="0.002">
     </testcase>
-    <testcase classname="Memory Game Tests should reset the game when Reset Game button is clicked" name="Memory Game Tests should reset the game when Reset Game button is clicked" time="0.004">
+    <testcase classname="Memory Game Tests should reset the game when Reset Game button is clicked" name="Memory Game Tests should reset the game when Reset Game button is clicked" time="0.005">
     </testcase>
   </testsuite>
 </testsuites>

@@ -1,0 +1,15 @@
+PASS src/components/App.test.js
+  Memory Game Tests
+    √ should render the landing page with difficulty options (47 ms)
+    √ should start the game when a difficulty level is selected (16 ms)
+    √ should start the game when Start Game button is clicked (13 ms)
+    √ should display the correct number of tiles for easy mode (4 ms)
+    √ should display the correct number of tiles for normal mode (5 ms)
+    √ should display the correct number of tiles for hard mode (12 ms)
+    √ should reset the game when Reset Game button is clicked (17 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       7 passed, 7 total
+Snapshots:   0 total
+Time:        7.081 s
+Ran all test suites.

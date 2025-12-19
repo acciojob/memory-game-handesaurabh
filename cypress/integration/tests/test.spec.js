@@ -1,30 +1,46 @@
 describe('Memory game', () => {
-  it('Renders the game', () => {
+  // Run this before each test to ensure a clean state
+  beforeEach(() => {
     cy.visit('http://localhost:8080');
+  });
+
+  it('Renders the game', () => {
+    // Verify the landing page is visible
     cy.contains('Welcome!').should('be.visible');
+    // Verify the "Start Game" button exists
+    cy.get('#start-game-btn').should('exist');
   });
 
   it('Validating different modes', () => {
-    cy.visit('http://localhost:8080');
+    // --- Test Easy Mode ---
+    // Select the radio button. In your App.js, onChange triggers startGame immediately
+    cy.get('input#easy').click();
     
-    // Test Easy mode - directly check the radio button
-    cy.get('input#easy').should('exist').check();
+    // Verify Easy Mode UI
     cy.contains('Easy Mode').should('be.visible');
     cy.get('.tile').should('have.length', 8);
+
+    // Reset the game to go back to the main menu
+    // We use cy.contains to specifically click the 'Reset Game' button
+    cy.contains('button', 'Reset Game').click();
     
-    // Navigate away and back for a fresh start (instead of reset)
-    cy.visit('http://localhost:8080');
+    // Verify we are back at the landing page
+    cy.contains('Welcome!').should('be.visible');
+
+    // --- Test Normal Mode ---
+    cy.get('input#normal').click();
     
-    // Test Normal mode
-    cy.get('input#normal').should('exist').check();
+    // Verify Normal Mode UI
     cy.contains('Normal Mode').should('be.visible');
     cy.get('.tile').should('have.length', 16);
+
+    // Reset
+    cy.contains('button', 'Reset Game').click();
+
+    // --- Test Hard Mode ---
+    cy.get('input#hard').click();
     
-    // Navigate away and back for a fresh start
-    cy.visit('http://localhost:8080');
-    
-    // Test Hard mode
-    cy.get('input#hard').should('exist').check();
+    // Verify Hard Mode UI
     cy.contains('Hard Mode').should('be.visible');
     cy.get('.tile').should('have.length', 32);
   });

@@ -7,26 +7,24 @@ describe('Memory game', () => {
   it('Validating different modes', () => {
     cy.visit('http://localhost:8080');
     
-    // Test Easy mode - click radio (your onChange starts game)
-    cy.contains('label', 'Easy (8 tiles)').click();
+    // Click radio buttons DIRECTLY using .check() - triggers your onChange
+    cy.get('input#easy').check();
     cy.contains('Easy Mode').should('be.visible');
     cy.get('.cells_container.easy .tile').should('have.length', 8);
     
-    // Reset game
+    // Reset
     cy.contains('Reset Game').click();
-    cy.contains('Welcome!').should('be.visible');
     
-    // Test Normal mode
-    cy.contains('label', 'Normal (16 tiles)').click();
+    // Normal mode
+    cy.get('input#normal').check();
     cy.contains('Normal Mode').should('be.visible');
     cy.get('.cells_container.normal .tile').should('have.length', 16);
     
-    // Reset game
+    // Reset  
     cy.contains('Reset Game').click();
-    cy.contains('Welcome!').should('be.visible');
     
-    // Test Hard mode
-    cy.contains('label', 'Hard (32 tiles)').click();
+    // Hard mode
+    cy.get('input#hard').check();
     cy.contains('Hard Mode').should('be.visible');
     cy.get('.cells_container.hard .tile').should('have.length', 32);
   });

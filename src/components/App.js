@@ -123,9 +123,35 @@ const App = () => {
           <h1>Welcome!</h1>
           <h4>Select Difficulty Level: <span>0</span></h4>
           <div>
-            <button id="easy" onClick={() => startGame('easy')}>Easy (8 tiles)</button>
-            <button id="normal" onClick={() => startGame('normal')}>Normal (16 tiles)</button>
-            <button id="hard" onClick={() => startGame('hard')}>Hard (32 tiles)</button>
+            <label>
+              <input
+                type="radio"
+                name="difficulty"
+                id="easy"
+                onChange={() => startGame('easy')}
+              />
+              Easy (8 tiles)
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="difficulty"
+                id="normal"
+                onChange={() => startGame('normal')}
+              />
+              Normal (16 tiles)
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="difficulty"
+                id="hard"
+                onChange={() => startGame('hard')}
+              />
+              Hard (32 tiles)
+            </label>
           </div>
           <button id="start-game-btn" onClick={() => startGame('easy')}>Start Game</button>
         </div>

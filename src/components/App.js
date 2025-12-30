@@ -3,6 +3,7 @@ import './../styles/App.css';
 
 const App = () => {
   const [difficulty, setDifficulty] = useState(null);
+  const [selectedDifficulty, setSelectedDifficulty] = useState(null); // NEW
   const [tiles, setTiles] = useState([]);
   const [flippedTiles, setFlippedTiles] = useState([]);
   const [matchedPairs, setMatchedPairs] = useState([]);
@@ -11,6 +12,7 @@ const App = () => {
 
   // Set up game based on difficulty
   const startGame = (level) => {
+    if (!level) return; // safeguard
     setDifficulty(level);
     setMatchedPairs([]);
     setFlippedTiles([]);
@@ -108,6 +110,7 @@ const App = () => {
   // Reset game
   const resetGame = () => {
     setDifficulty(null);
+    setSelectedDifficulty(null); // NEW
     setTiles([]);
     setFlippedTiles([]);
     setMatchedPairs([]);
@@ -128,7 +131,7 @@ const App = () => {
                 type="radio"
                 name="difficulty"
                 id="easy"
-                onChange={() => setDifficulty('easy')}
+                onChange={() => setSelectedDifficulty('easy')} // CHANGED
               />
               Easy (8 tiles)
             </label>
@@ -138,7 +141,7 @@ const App = () => {
                 type="radio"
                 name="difficulty"
                 id="normal"
-                onChange={() => setDifficulty('normal')}
+                onChange={() => setSelectedDifficulty('normal')} // CHANGED
               />
               Normal (16 tiles)
             </label>
@@ -148,15 +151,18 @@ const App = () => {
                 type="radio"
                 name="difficulty"
                 id="hard"
-                onChange={() => setDifficulty('hard')}
+                onChange={() => setSelectedDifficulty('hard')} // CHANGED
               />
               Hard (32 tiles)
             </label>
           </div>
           <button
             id="start-game-btn"
-            onClick={() => startGame(difficulty)}
-            disabled={!difficulty}>Start Game</button>
+            onClick={() => startGame(selectedDifficulty)} // CHANGED
+            disabled={!selectedDifficulty} // CHANGED
+          >
+            Start Game
+          </button>
         </div>
       ) : (
         // Game board

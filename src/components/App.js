@@ -124,7 +124,9 @@ const App = () => {
         // Landing page with difficulty selection
         <div className="levels_container">
           <h1>Welcome!</h1>
-          <h4>Select Difficulty Level: <span>0</span></h4>
+          <h4 data-testid="select-difficulty">
+            Select Difficulty Level: <span>0</span>
+          </h4>
           <div>
             <label>
               <input

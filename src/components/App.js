@@ -128,7 +128,7 @@ const App = () => {
                 type="radio"
                 name="difficulty"
                 id="easy"
-                onChange={() => startGame('easy')}
+                onChange={() => setDifficulty('easy')}
               />
               Easy (8 tiles)
             </label>
@@ -138,7 +138,7 @@ const App = () => {
                 type="radio"
                 name="difficulty"
                 id="normal"
-                onChange={() => startGame('normal')}
+                onChange={() => setDifficulty('normal')}
               />
               Normal (16 tiles)
             </label>
@@ -148,12 +148,15 @@ const App = () => {
                 type="radio"
                 name="difficulty"
                 id="hard"
-                onChange={() => startGame('hard')}
+                onChange={() => setDifficulty('hard')}
               />
               Hard (32 tiles)
             </label>
           </div>
-          <button id="start-game-btn" onClick={() => startGame('easy')}>Start Game</button>
+          <button
+            id="start-game-btn"
+            onClick={() => startGame(difficulty)}
+            disabled={!difficulty}>Start Game</button>
         </div>
       ) : (
         // Game board
@@ -176,6 +179,7 @@ const App = () => {
               {tiles.map(tile => (
                 <div
                   key={tile.id}
+                  data-testid={`tile-${tile.id}`}
                   className={`tile ${flippedTiles.includes(tile.id) || tile.isMatched ? 'flipped' : ''} ${tile.isMatched ? 'matched' : ''}`}
                   onClick={() => handleTileClick(tile.id)}
                 >

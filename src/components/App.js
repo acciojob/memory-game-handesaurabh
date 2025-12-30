@@ -32,10 +32,11 @@ const App = () => {
         tileCount = 8;
     }
 
-    // Create unique numbers
+    // Create pairs of numbers
+    const pairs = tileCount / 2;
     let numbers = [];
-    for (let i = 1; i <= tileCount; i++) {
-      numbers.push(i); // Add each number once
+    for (let i = 1; i <= pairs; i++) {
+      numbers.push(i, i); // Add each number twice for pairing
     }
 
     // Shuffle the numbers
@@ -122,18 +123,9 @@ const App = () => {
           <h1>Welcome!</h1>
           <h4>Select Difficulty Level: <span>0</span></h4>
           <div>
-            <div>
-              <input type="radio" id="easy" name="difficulty" value="easy" onChange={() => startGame('easy')} />
-              <label htmlFor="easy">Easy (8 tiles)</label>
-            </div>
-            <div>
-              <input type="radio" id="normal" name="difficulty" value="normal" onChange={() => startGame('normal')} />
-              <label htmlFor="normal">Normal (16 tiles)</label>
-            </div>
-            <div>
-              <input type="radio" id="hard" name="difficulty" value="hard" onChange={() => startGame('hard')} />
-              <label htmlFor="hard">Hard (32 tiles)</label>
-            </div>
+            <button id="easy" onClick={() => startGame('easy')}>Easy (8 tiles)</button>
+            <button id="normal" onClick={() => startGame('normal')}>Normal (16 tiles)</button>
+            <button id="hard" onClick={() => startGame('hard')}>Hard (32 tiles)</button>
           </div>
           <button id="start-game-btn" onClick={() => startGame('easy')}>Start Game</button>
         </div>

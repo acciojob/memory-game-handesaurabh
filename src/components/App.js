@@ -16,9 +16,9 @@ const App = () => {
     setFlippedTiles([]);
     setAttempts(0);
     setGameCompleted(false);
-    
+
     let tileCount;
-    switch(level) {
+    switch (level) {
       case 'easy':
         tileCount = 8;
         break;
@@ -31,17 +31,16 @@ const App = () => {
       default:
         tileCount = 8;
     }
-    
-    // Create pairs of numbers
-    const pairs = tileCount / 2;
+
+    // Create unique numbers
     let numbers = [];
-    for (let i = 1; i <= pairs; i++) {
-      numbers.push(i, i); // Add each number twice for pairing
+    for (let i = 1; i <= tileCount; i++) {
+      numbers.push(i); // Add each number once
     }
-    
+
     // Shuffle the numbers
     shuffleArray(numbers);
-    
+
     // Create tile objects
     const newTiles = numbers.map((number, index) => ({
       id: index,
@@ -49,7 +48,7 @@ const App = () => {
       isFlipped: false,
       isMatched: false
     }));
-    
+
     setTiles(newTiles);
   };
 
@@ -67,30 +66,30 @@ const App = () => {
     if (flippedTiles.includes(tileId) || tiles.find(tile => tile.id === tileId)?.isMatched) {
       return;
     }
-    
+
     const newFlippedTiles = [...flippedTiles, tileId];
     setFlippedTiles(newFlippedTiles);
-    
+
     // When two tiles are flipped, check for match
     if (newFlippedTiles.length === 2) {
       setAttempts(prev => prev + 1);
-      
+
       const firstTile = tiles.find(tile => tile.id === newFlippedTiles[0]);
       const secondTile = tiles.find(tile => tile.id === newFlippedTiles[1]);
-      
+
       if (firstTile.value === secondTile.value) {
         // Match found
         const updatedTiles = tiles.map(tile => {
           if (tile.id === firstTile.id || tile.id === secondTile.id) {
-            return {...tile, isMatched: true};
+            return { ...tile, isMatched: true };
           }
           return tile;
         });
-        
+
         setTiles(updatedTiles);
         setMatchedPairs(prev => [...prev, firstTile.value]);
       }
-      
+
       // Reset flipped tiles after a delay
       setTimeout(() => {
         setFlippedTiles([]);
@@ -147,7 +146,7 @@ const App = () => {
             <p>Matches: {matchedPairs.length} / {tiles.length / 2}</p>
             <button onClick={resetGame}>Reset Game</button>
           </div>
-          
+
           {gameCompleted ? (
             <div className="game-completed">
               <h2>Congratulations!</h2>
@@ -157,7 +156,7 @@ const App = () => {
           ) : (
             <div className={`cells_container ${difficulty}`}>
               {tiles.map(tile => (
-                <div 
+                <div
                   key={tile.id}
                   className={`tile ${flippedTiles.includes(tile.id) || tile.isMatched ? 'flipped' : ''} ${tile.isMatched ? 'matched' : ''}`}
                   onClick={() => handleTileClick(tile.id)}

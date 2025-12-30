@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --no-color 2>output.txt",
     "test:dev": "node test-runner.js",
-    "start": "webpack-dev-server --mode development --watch --open --hot",
+    "start": "webpack-dev-server --mode development --watch --open",
     "build": "webpack --mode production"
   },
   "keywords": [],

@@ -7,19 +7,19 @@ describe('Memory game', () => {
   it('Validating different modes', () => {
     // Test Easy mode
     cy.visit('http://localhost:8080');
-    cy.get('#easy').should('exist').click();
+    cy.get('input#easy').should('exist').check({ force: true });
     cy.contains('Easy Mode').should('be.visible');
     cy.get('.tile').should('have.length', 8);
 
     // Test Normal mode
     cy.visit('http://localhost:8080');
-    cy.get('#normal').should('exist').click();
+    cy.get('input#normal').should('exist').check({ force: true });
     cy.contains('Normal Mode').should('be.visible');
     cy.get('.tile').should('have.length', 16);
 
     // Test Hard mode
     cy.visit('http://localhost:8080');
-    cy.get('#hard').should('exist').click();
+    cy.get('input#hard').should('exist').check({ force: true });
     cy.contains('Hard Mode').should('be.visible');
     cy.get('.tile').should('have.length', 32);
   });

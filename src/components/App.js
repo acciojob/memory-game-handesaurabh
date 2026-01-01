@@ -109,7 +109,8 @@ const App = () => {
                 id="easy"
                 name="difficulty"
                 value="easy"
-                onChange={() => startGame("easy")}
+                onChange={() => setSelectedDifficulty("easy")}
+                onClick={() => startGame("easy")}
               />
               Easy (8 tiles)
             </label>
@@ -119,7 +120,8 @@ const App = () => {
                 id="normal"
                 name="difficulty"
                 value="normal"
-                onChange={() => startGame("normal")}
+                onChange={() => setSelectedDifficulty("normal")}
+                onClick={() => startGame("normal")}
               />
               Normal (16 tiles)
             </label>
@@ -129,7 +131,8 @@ const App = () => {
                 id="hard"
                 name="difficulty"
                 value="hard"
-                onChange={() => startGame("hard")}
+                onChange={() => setSelectedDifficulty("hard")}
+                onClick={() => startGame("hard")}
               />
               Hard (32 tiles)
             </label>

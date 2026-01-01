@@ -146,12 +146,13 @@ const App = () => {
         <div>
           <div className="game-info">
             <h4>{difficulty.toUpperCase()} Mode</h4>
-            <p>Attempts: {attempts}</p>
+            <h4>Attempts: {attempts}</h4>
             <p>
               Matches: {matchedPairs.length} / {tiles.length / 2}
             </p>
             {!gameCompleted && <button onClick={resetGame}>Reset Game</button>}
           </div>
+
 
           {gameCompleted ? (
             <div className="game-completed">

@@ -49,8 +49,9 @@ const App = () => {
       flippedTiles.includes(id) ||
       tiles.find((t) => t.id === id)?.isMatched ||
       flippedTiles.length === 2
-    )
+    ) {
       return;
+    }
 
     const newFlips = [...flippedTiles, id];
     setFlippedTiles(newFlips);
@@ -154,9 +155,7 @@ const App = () => {
             <p>
               Matches: {matchedPairs.length} / {tiles.length / 2}
             </p>
-            {!gameCompleted && (
-              <button onClick={resetGame}>Reset Game</button>
-            )}
+            {!gameCompleted && <button onClick={resetGame}>Reset Game</button>}
           </div>
 
           {gameCompleted ? (
@@ -165,16 +164,18 @@ const App = () => {
               <button onClick={resetGame}>Play Again</button>
             </div>
           ) : (
-            <div className={`cells_container ${difficulty}`}>
+            <div className={`cells_container ${difficulty}`} data-testid={`grid-${difficulty}`}>
               {tiles.map((tile) => (
                 <div
                   key={tile.id}
                   data-testid={`tile-${tile.id}`}
-                  className={`cell ${flippedTiles.includes(tile.id) || tile.isMatched ? "flipped" : ""
+                  className={`cell ${flippedTiles.includes(tile.id) || tile.isMatched
+                    ? tile.isMatched ? "matched" : "flipped"
+                    : ""
                     }`}
                   onClick={() => handleTileClick(tile.id)}
                 >
-                  <span>
+                  <span data-testid={`tile-value-${tile.id}`}>
                     {flippedTiles.includes(tile.id) || tile.isMatched
                       ? tile.value
                       : "?"}
@@ -182,6 +183,7 @@ const App = () => {
                 </div>
               ))}
             </div>
+
           )}
         </>
       )}

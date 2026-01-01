@@ -176,7 +176,7 @@ const App = () => {
             <h4>{difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} Mode</h4>
             <p>Attempts: {attempts}</p>
             <p>Matches: {matchedPairs.length} / {tiles.length / 2}</p>
-            <button onClick={resetGame}>Reset Game</button>
+            {!gameCompleted && <button onClick={resetGame}>Reset Game</button>}
           </div>
 
           {gameCompleted ? (

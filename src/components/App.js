@@ -99,9 +99,10 @@ const App = () => {
           </h4>
 
           <div>
-            <label>
+            <label htmlFor="easy">
               <input
                 type="radio"
+                id="easy"
                 name="difficulty"
                 value="easy"
                 onChange={() => setSelectedDifficulty("easy")}
@@ -109,9 +110,10 @@ const App = () => {
               Easy (8 tiles)
             </label>
 
-            <label>
+            <label htmlFor="normal">
               <input
                 type="radio"
+                id="normal"
                 name="difficulty"
                 value="normal"
                 onChange={() => setSelectedDifficulty("normal")}
@@ -119,15 +121,17 @@ const App = () => {
               Normal (16 tiles)
             </label>
 
-            <label>
+            <label htmlFor="hard">
               <input
                 type="radio"
+                id="hard"
                 name="difficulty"
                 value="hard"
                 onChange={() => setSelectedDifficulty("hard")}
               />
               Hard (32 tiles)
             </label>
+
           </div>
 
           <button

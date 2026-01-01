@@ -93,31 +93,6 @@ const App = () => {
     setGameCompleted(false);
   };
 
-  // Auto-start game when difficulty is selected
-  useEffect(() => {
-    if (selectedDifficulty) {
-      startGame(selectedDifficulty);
-    }
-  }, [selectedDifficulty]);
-
-  // Get number of columns based on difficulty
-  const getColumnsCount = () => {
-    if (difficulty === "easy") return 4;
-    if (difficulty === "normal") return 4;
-    if (difficulty === "hard") return 8;
-    return 4;
-  };
-
-  // Split tiles into rows
-  const getTileRows = () => {
-    const cols = getColumnsCount();
-    const rows = [];
-    for (let i = 0; i < tiles.length; i += cols) {
-      rows.push(tiles.slice(i, i + cols));
-    }
-    return rows;
-  };
-
   return (
     <div>
       {!difficulty ? (
@@ -135,7 +110,6 @@ const App = () => {
                 id="easy"
                 name="difficulty"
                 value="easy"
-                data-testid="difficulty-easy"
                 onChange={() => setSelectedDifficulty("easy")}
               />
               Easy (8 tiles)
@@ -147,7 +121,6 @@ const App = () => {
                 id="normal"
                 name="difficulty"
                 value="normal"
-                data-testid="difficulty-normal"
                 onChange={() => setSelectedDifficulty("normal")}
               />
               Normal (16 tiles)
@@ -159,7 +132,6 @@ const App = () => {
                 id="hard"
                 name="difficulty"
                 value="hard"
-                data-testid="difficulty-hard"
                 onChange={() => setSelectedDifficulty("hard")}
               />
               Hard (32 tiles)
@@ -170,7 +142,6 @@ const App = () => {
             id="start-game-btn"
             disabled={!selectedDifficulty}
             onClick={() => startGame(selectedDifficulty)}
-            style={{ display: 'none' }}
           >
             Start Game
           </button>
@@ -178,7 +149,7 @@ const App = () => {
       ) : (
         <>
           <div className="game-info">
-            <h4>{difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} Mode</h4>
+            <h4>{difficulty.toUpperCase()} Mode</h4>
             <h4>Attempts: {attempts}</h4>
             <p>
               Matches: {matchedPairs.length} / {tiles.length / 2}
@@ -195,25 +166,19 @@ const App = () => {
             </div>
           ) : (
             <div className={`cells_container ${difficulty}`}>
-              {getTileRows().map((row, rowIdx) => (
-                <div key={rowIdx} className="row">
-                  {row.map((tile) => (
-                    <div
-                      key={tile.id}
-                      data-testid={`tile-${tile.id}`}
-                      className={`tile ${flippedTiles.includes(tile.id) || tile.isMatched
-                        ? "flipped"
-                        : ""
-                        }`}
-                      onClick={() => handleTileClick(tile.id)}
-                    >
-                      <span>
-                        {flippedTiles.includes(tile.id) || tile.isMatched
-                          ? tile.value
-                          : "?"}
-                      </span>
-                    </div>
-                  ))}
+              {tiles.map((tile) => (
+                <div
+                  key={tile.id}
+                  data-testid={`tile-${tile.id}`}
+                  className={`cell ${flippedTiles.includes(tile.id) || tile.isMatched ? "flipped" : ""
+                    }`}
+                  onClick={() => handleTileClick(tile.id)}
+                >
+                  <span>
+                    {flippedTiles.includes(tile.id) || tile.isMatched
+                      ? tile.value
+                      : "?"}
+                  </span>
                 </div>
               ))}
             </div>

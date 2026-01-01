@@ -128,6 +128,7 @@ const App = () => {
                 id="easy"
                 name="difficulty"
                 value="easy"
+                data-testid="difficulty-easy"
                 onChange={() => setSelectedDifficulty("easy")}
               />
               Easy (8 tiles)
@@ -139,6 +140,7 @@ const App = () => {
                 id="normal"
                 name="difficulty"
                 value="normal"
+                data-testid="difficulty-normal"
                 onChange={() => setSelectedDifficulty("normal")}
               />
               Normal (16 tiles)
@@ -150,6 +152,7 @@ const App = () => {
                 id="hard"
                 name="difficulty"
                 value="hard"
+                data-testid="difficulty-hard"
                 onChange={() => setSelectedDifficulty("hard")}
               />
               Hard (32 tiles)

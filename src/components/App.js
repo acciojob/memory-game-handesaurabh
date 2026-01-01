@@ -3,7 +3,6 @@ import "./../styles/App.css";
 
 const App = () => {
   const [difficulty, setDifficulty] = useState(null);
-  const [selectedDifficulty, setSelectedDifficulty] = useState(null);
   const [tiles, setTiles] = useState([]);
   const [flippedTiles, setFlippedTiles] = useState([]);
   const [matchedPairs, setMatchedPairs] = useState([]);
@@ -86,7 +85,6 @@ const App = () => {
 
   const resetGame = () => {
     setDifficulty(null);
-    setSelectedDifficulty(null);
     setTiles([]);
     setFlippedTiles([]);
     setMatchedPairs([]);
@@ -100,7 +98,7 @@ const App = () => {
         <div className="levels_container">
           <h1>Welcome!</h1>
           <h4 data-testid="select-difficulty">
-            Select Difficulty Level: <span>{selectedDifficulty ? 1 : 0}</span>
+            Select Difficulty Level: <span>0</span>
           </h4>
           <div>
             <label htmlFor="easy">
@@ -109,7 +107,7 @@ const App = () => {
                 id="easy"
                 name="difficulty"
                 value="easy"
-                onChange={() => setSelectedDifficulty("easy")}
+                onChange={() => startGame("easy")}
               />
               Easy (8 tiles)
             </label>
@@ -119,7 +117,7 @@ const App = () => {
                 id="normal"
                 name="difficulty"
                 value="normal"
-                onChange={() => setSelectedDifficulty("normal")}
+                onChange={() => startGame("normal")}
               />
               Normal (16 tiles)
             </label>
@@ -129,23 +127,16 @@ const App = () => {
                 id="hard"
                 name="difficulty"
                 value="hard"
-                onChange={() => setSelectedDifficulty("hard")}
+                onChange={() => startGame("hard")}
               />
               Hard (32 tiles)
             </label>
           </div>
-          <button
-            id="start-game-btn"
-            disabled={!selectedDifficulty}
-            onClick={() => startGame(selectedDifficulty)}
-          >
-            Start Game
-          </button>
         </div>
       ) : (
         <>
           <div className="game-info">
-            <h4>{difficulty.toUpperCase()} Mode</h4>
+            <h4>{difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} Mode</h4>
             <h4>Attempts: {attempts}</h4>
             <p>Matches: {matchedPairs.length} / {tiles.length / 2}</p>
             {!gameCompleted && <button onClick={resetGame}>Reset Game</button>}
@@ -162,7 +153,7 @@ const App = () => {
                 <div
                   key={tile.id}
                   data-testid={`tile-${tile.id}`}
-                  className={`cell ${flippedTiles.includes(tile.id) || tile.isMatched
+                  className={`tile ${flippedTiles.includes(tile.id) || tile.isMatched
                     ? "flipped"
                     : ""
                     }`}

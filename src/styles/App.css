@@ -119,7 +119,7 @@ body {
   max-width: 800px;
 }
 
-.cell {
+.tile {
   width: 100%;
   aspect-ratio: 1;
   background: linear-gradient(135deg, #3498db, #8e44ad);
@@ -136,17 +136,17 @@ body {
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.cell:hover {
+.tile:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
 
-.cell.flipped {
+.tile.flipped {
   background: linear-gradient(135deg, #2ecc71, #f1c40f);
   transform: rotateY(360deg);
 }
 
-.cell.matched {
+.tile.matched {
   background: linear-gradient(135deg, #27ae60, #f39c12);
   cursor: default;
   opacity: 0.9;
@@ -199,7 +199,7 @@ body {
     max-width: 90%;
   }
   
-  .cell {
+  .tile {
     font-size: 1.3rem;
   }
   

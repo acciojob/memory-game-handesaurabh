@@ -136,7 +136,7 @@ const App = () => {
                 type="radio"
                 name="difficulty"
                 id="easy"
-                onChange={() => setSelectedDifficulty('easy')} // CHANGED
+                onChange={() => startGame('easy')}
               />
               Easy (8 tiles)
             </label>
@@ -146,7 +146,7 @@ const App = () => {
                 type="radio"
                 name="difficulty"
                 id="normal"
-                onChange={() => setSelectedDifficulty('normal')} // CHANGED
+                onChange={() => startGame('normal')}
               />
               Normal (16 tiles)
             </label>
@@ -156,7 +156,7 @@ const App = () => {
                 type="radio"
                 name="difficulty"
                 id="hard"
-                onChange={() => setSelectedDifficulty('hard')} // CHANGED
+                onChange={() => startGame('hard')}
               />
               Hard (32 tiles)
             </label>
@@ -173,7 +173,7 @@ const App = () => {
         // Game board
         <div>
           <div className="game-info">
-            <h2>{difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} Mode</h2>
+            <h4>{difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} Mode</h4>
             <p>Attempts: {attempts}</p>
             <p>Matches: {matchedPairs.length} / {tiles.length / 2}</p>
             <button onClick={resetGame}>Reset Game</button>

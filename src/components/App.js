@@ -1,116 +1,87 @@
 import React, { useState, useEffect } from "react";
-import './../styles/App.css';
+import "./../styles/App.css";
 
 const App = () => {
   const [difficulty, setDifficulty] = useState(null);
-  const [selectedDifficulty, setSelectedDifficulty] = useState(null); // NEW
+  const [selectedDifficulty, setSelectedDifficulty] = useState(null);
   const [tiles, setTiles] = useState([]);
   const [flippedTiles, setFlippedTiles] = useState([]);
   const [matchedPairs, setMatchedPairs] = useState([]);
   const [attempts, setAttempts] = useState(0);
   const [gameCompleted, setGameCompleted] = useState(false);
 
-  // Set up game based on difficulty
   const startGame = (level) => {
-    if (!level) return; // safeguard
+    if (!level) return;
+
     setDifficulty(level);
     setMatchedPairs([]);
     setFlippedTiles([]);
     setAttempts(0);
     setGameCompleted(false);
 
-    let tileCount;
-    switch (level) {
-      case 'easy':
-        tileCount = 8;
-        break;
-      case 'normal':
-        tileCount = 16;
-        break;
-      case 'hard':
-        tileCount = 32;
-        break;
-      default:
-        tileCount = 8;
+    let tileCount = level === "easy" ? 8 : level === "normal" ? 16 : 32;
+
+    const numbers = [];
+    for (let i = 1; i <= tileCount / 2; i++) {
+      numbers.push(i, i);
     }
 
-    // Create pairs of numbers
-    const pairs = tileCount / 2;
-    let numbers = [];
-    for (let i = 1; i <= pairs; i++) {
-      numbers.push(i, i); // Add each number twice for pairing
-    }
-
-    // Shuffle the numbers
     shuffleArray(numbers);
 
-    // Create tile objects
-    const newTiles = numbers.map((number, index) => ({
-      id: index,
-      value: number,
-      isFlipped: false,
-      isMatched: false
-    }));
-
-    setTiles(newTiles);
+    setTiles(
+      numbers.map((num, idx) => ({
+        id: idx,
+        value: num,
+        isMatched: false
+      }))
+    );
   };
 
-  // Fisher-Yates shuffle algorithm
-  const shuffleArray = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
+  const shuffleArray = (arr) => {
+    for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+      [arr[i], arr[j]] = [arr[j], arr[i]];
     }
   };
 
-  // Handle tile click
-  const handleTileClick = (tileId) => {
-    // Don't process if tile is already flipped or matched
-    if (flippedTiles.includes(tileId) || tiles.find(tile => tile.id === tileId)?.isMatched) {
+  const handleTileClick = (id) => {
+    if (
+      flippedTiles.includes(id) ||
+      tiles.find((t) => t.id === id)?.isMatched ||
+      flippedTiles.length === 2
+    )
       return;
-    }
 
-    const newFlippedTiles = [...flippedTiles, tileId];
-    setFlippedTiles(newFlippedTiles);
+    const newFlips = [...flippedTiles, id];
+    setFlippedTiles(newFlips);
 
-    // When two tiles are flipped, check for match
-    if (newFlippedTiles.length === 2) {
-      setAttempts(prev => prev + 1);
+    if (newFlips.length === 2) {
+      setAttempts((a) => a + 1);
 
-      const firstTile = tiles.find(tile => tile.id === newFlippedTiles[0]);
-      const secondTile = tiles.find(tile => tile.id === newFlippedTiles[1]);
+      const [a, b] = newFlips.map((i) => tiles.find((t) => t.id === i));
 
-      if (firstTile.value === secondTile.value) {
-        // Match found
-        const updatedTiles = tiles.map(tile => {
-          if (tile.id === firstTile.id || tile.id === secondTile.id) {
-            return { ...tile, isMatched: true };
-          }
-          return tile;
-        });
-
-        setTiles(updatedTiles);
-        setMatchedPairs(prev => [...prev, firstTile.value]);
+      if (a.value === b.value) {
+        setTiles((prev) =>
+          prev.map((t) =>
+            t.id === a.id || t.id === b.id ? { ...t, isMatched: true } : t
+          )
+        );
+        setMatchedPairs((p) => [...p, a.value]);
       }
 
-      // Reset flipped tiles after a delay
-      setTimeout(() => {
-        setFlippedTiles([]);
-      }, 1000);
+      setTimeout(() => setFlippedTiles([]), 800);
     }
   };
 
-  // Check if game is completed
   useEffect(() => {
-    if (tiles.length > 0 && matchedPairs.length === tiles.length / 2 && tiles.length > 0) {
+    if (tiles.length && matchedPairs.length === tiles.length / 2) {
       setGameCompleted(true);
     }
   }, [matchedPairs, tiles]);
 
-  // Reset game
   const resetGame = () => {
     setDifficulty(null);
-    setSelectedDifficulty(null); // NEW
+    setSelectedDifficulty(null);
     setTiles([]);
     setFlippedTiles([]);
     setMatchedPairs([]);
@@ -121,22 +92,19 @@ const App = () => {
   return (
     <div>
       {!difficulty ? (
-        // Landing page with difficulty selection
         <div className="levels_container">
           <h1>Welcome!</h1>
-          <h4
-            data-testid="select-difficulty"
-            style={{ display: !difficulty ? 'block' : 'none' }}
-          >
+          <h4 data-testid="select-difficulty">
             Select Difficulty Level: <span>0</span>
           </h4>
+
           <div>
             <label>
               <input
                 type="radio"
                 name="difficulty"
-                id="easy"
-                onChange={() => startGame('easy')}
+                value="easy"
+                onChange={() => setSelectedDifficulty("easy")}
               />
               Easy (8 tiles)
             </label>
@@ -145,8 +113,8 @@ const App = () => {
               <input
                 type="radio"
                 name="difficulty"
-                id="normal"
-                onChange={() => startGame('normal')}
+                value="normal"
+                onChange={() => setSelectedDifficulty("normal")}
               />
               Normal (16 tiles)
             </label>
@@ -155,46 +123,54 @@ const App = () => {
               <input
                 type="radio"
                 name="difficulty"
-                id="hard"
-                onChange={() => startGame('hard')}
+                value="hard"
+                onChange={() => setSelectedDifficulty("hard")}
               />
               Hard (32 tiles)
             </label>
           </div>
+
           <button
             id="start-game-btn"
-            onClick={() => startGame(selectedDifficulty)} // CHANGED
-            disabled={!selectedDifficulty} // CHANGED
+            disabled={!selectedDifficulty}
+            onClick={() => startGame(selectedDifficulty)}
           >
             Start Game
           </button>
         </div>
       ) : (
-        // Game board
         <div>
           <div className="game-info">
-            <h4>{difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} Mode</h4>
+            <h4>{difficulty.toUpperCase()} Mode</h4>
             <p>Attempts: {attempts}</p>
-            <p>Matches: {matchedPairs.length} / {tiles.length / 2}</p>
+            <p>
+              Matches: {matchedPairs.length} / {tiles.length / 2}
+            </p>
             {!gameCompleted && <button onClick={resetGame}>Reset Game</button>}
           </div>
 
           {gameCompleted ? (
             <div className="game-completed">
               <h2>Congratulations!</h2>
-              <p>You completed the game in {attempts} attempts!</p>
               <button onClick={resetGame}>Play Again</button>
             </div>
           ) : (
             <div className={`cells_container ${difficulty}`}>
-              {tiles.map(tile => (
+              {tiles.map((tile) => (
                 <div
                   key={tile.id}
                   data-testid={`tile-${tile.id}`}
-                  className={`cell ${flippedTiles.includes(tile.id) || tile.isMatched ? 'flipped' : ''} ${tile.isMatched ? 'matched' : ''}`}
+                  className={`cell ${flippedTiles.includes(tile.id) || tile.isMatched
+                    ? "flipped"
+                    : ""
+                    }`}
                   onClick={() => handleTileClick(tile.id)}
                 >
-                  <span>{flippedTiles.includes(tile.id) || tile.isMatched ? tile.value : '?'}</span>
+                  <span>
+                    {flippedTiles.includes(tile.id) || tile.isMatched
+                      ? tile.value
+                      : "?"}
+                  </span>
                 </div>
               ))}
             </div>

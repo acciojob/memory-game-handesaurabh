@@ -93,6 +93,24 @@ const App = () => {
     setGameCompleted(false);
   };
 
+  // Get number of columns based on difficulty
+  const getColumnsCount = () => {
+    if (difficulty === "easy") return 4;
+    if (difficulty === "normal") return 4;
+    if (difficulty === "hard") return 8;
+    return 4;
+  };
+
+  // Split tiles into rows
+  const getTileRows = () => {
+    const cols = getColumnsCount();
+    const rows = [];
+    for (let i = 0; i < tiles.length; i += cols) {
+      rows.push(tiles.slice(i, i + cols));
+    }
+    return rows;
+  };
+
   return (
     <div>
       {!difficulty ? (
@@ -166,21 +184,25 @@ const App = () => {
             </div>
           ) : (
             <div className={`cells_container ${difficulty}`}>
-              {tiles.map((tile) => (
-                <div
-                  key={tile.id}
-                  data-testid={`tile-${tile.id}`}
-                  className={`cell ${flippedTiles.includes(tile.id) || tile.isMatched
-                    ? "flipped"
-                    : ""
-                    }`}
-                  onClick={() => handleTileClick(tile.id)}
-                >
-                  <span>
-                    {flippedTiles.includes(tile.id) || tile.isMatched
-                      ? tile.value
-                      : "?"}
-                  </span>
+              {getTileRows().map((row, rowIdx) => (
+                <div key={rowIdx} className="row">
+                  {row.map((tile) => (
+                    <div
+                      key={tile.id}
+                      data-testid={`tile-${tile.id}`}
+                      className={`cell ${flippedTiles.includes(tile.id) || tile.isMatched
+                        ? "flipped"
+                        : ""
+                        }`}
+                      onClick={() => handleTileClick(tile.id)}
+                    >
+                      <span>
+                        {flippedTiles.includes(tile.id) || tile.isMatched
+                          ? tile.value
+                          : "?"}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>

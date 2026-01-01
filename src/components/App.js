@@ -99,11 +99,9 @@ const App = () => {
       {!difficulty ? (
         <div className="levels_container">
           <h1>Welcome!</h1>
-
           <h4 data-testid="select-difficulty">
             Select Difficulty Level: <span>{selectedDifficulty ? 1 : 0}</span>
           </h4>
-
           <div>
             <label htmlFor="easy">
               <input
@@ -115,7 +113,6 @@ const App = () => {
               />
               Easy (8 tiles)
             </label>
-
             <label htmlFor="normal">
               <input
                 type="radio"
@@ -126,7 +123,6 @@ const App = () => {
               />
               Normal (16 tiles)
             </label>
-
             <label htmlFor="hard">
               <input
                 type="radio"
@@ -138,7 +134,6 @@ const App = () => {
               Hard (32 tiles)
             </label>
           </div>
-
           <button
             id="start-game-btn"
             disabled={!selectedDifficulty}
@@ -152,9 +147,7 @@ const App = () => {
           <div className="game-info">
             <h4>{difficulty.toUpperCase()} Mode</h4>
             <h4>Attempts: {attempts}</h4>
-            <p>
-              Matches: {matchedPairs.length} / {tiles.length / 2}
-            </p>
+            <p>Matches: {matchedPairs.length} / {tiles.length / 2}</p>
             {!gameCompleted && <button onClick={resetGame}>Reset Game</button>}
           </div>
 
@@ -164,7 +157,7 @@ const App = () => {
               <button onClick={resetGame}>Play Again</button>
             </div>
           ) : (
-            <div className={`cells_container ${difficulty}`} data-testid={`grid-${difficulty}`}>
+            <div className={`cells_container ${difficulty}`}>
               {tiles.map((tile) => (
                 <div
                   key={tile.id}
@@ -175,7 +168,7 @@ const App = () => {
                     }`}
                   onClick={() => handleTileClick(tile.id)}
                 >
-                  <span data-testid={`tile-value-${tile.id}`}>
+                  <span>
                     {flippedTiles.includes(tile.id) || tile.isMatched
                       ? tile.value
                       : "?"}
@@ -183,7 +176,6 @@ const App = () => {
                 </div>
               ))}
             </div>
-
           )}
         </>
       )}

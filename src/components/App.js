@@ -3,6 +3,7 @@ import "./../styles/App.css";
 
 const App = () => {
   const [difficulty, setDifficulty] = useState(null);
+  const [selectedDifficulty, setSelectedDifficulty] = useState(null);
   const [tiles, setTiles] = useState([]);
   const [flippedTiles, setFlippedTiles] = useState([]);
   const [matchedPairs, setMatchedPairs] = useState([]);
@@ -85,6 +86,7 @@ const App = () => {
 
   const resetGame = () => {
     setDifficulty(null);
+    setSelectedDifficulty(null);
     setTiles([]);
     setFlippedTiles([]);
     setMatchedPairs([]);
@@ -98,7 +100,7 @@ const App = () => {
         <div className="levels_container">
           <h1>Welcome!</h1>
           <h4 data-testid="select-difficulty">
-            Select Difficulty Level: <span>0</span>
+            Select Difficulty Level: <span>{selectedDifficulty ? 1 : 0}</span>
           </h4>
           <div>
             <label htmlFor="easy">
@@ -108,7 +110,6 @@ const App = () => {
                 name="difficulty"
                 value="easy"
                 onChange={() => startGame("easy")}
-                onClick={() => startGame("easy")}
               />
               Easy (8 tiles)
             </label>
@@ -119,7 +120,6 @@ const App = () => {
                 name="difficulty"
                 value="normal"
                 onChange={() => startGame("normal")}
-                onClick={() => startGame("normal")}
               />
               Normal (16 tiles)
             </label>
@@ -130,11 +130,17 @@ const App = () => {
                 name="difficulty"
                 value="hard"
                 onChange={() => startGame("hard")}
-                onClick={() => startGame("hard")}
               />
               Hard (32 tiles)
             </label>
           </div>
+          <button
+            id="start-game-btn"
+            disabled={!selectedDifficulty}
+            onClick={() => startGame(selectedDifficulty)}
+          >
+            Start Game
+          </button>
         </div>
       ) : (
         <>

@@ -163,16 +163,18 @@ const App = () => {
                   key={tile.id}
                   data-testid={`tile-${tile.id}`}
                   className={`cell ${flippedTiles.includes(tile.id) || tile.isMatched
-                    ? tile.isMatched ? "matched" : "flipped"
+                    ? "flipped"
                     : ""
                     }`}
                   onClick={() => handleTileClick(tile.id)}
                 >
-                  <span>
-                    {flippedTiles.includes(tile.id) || tile.isMatched
-                      ? tile.value
-                      : "?"}
-                  </span>
+                  <div>
+                    <span>
+                      {flippedTiles.includes(tile.id) || tile.isMatched
+                        ? tile.value
+                        : "?"}
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>

@@ -93,6 +93,13 @@ const App = () => {
     setGameCompleted(false);
   };
 
+  // Auto-start game when difficulty is selected
+  useEffect(() => {
+    if (selectedDifficulty) {
+      startGame(selectedDifficulty);
+    }
+  }, [selectedDifficulty]);
+
   // Get number of columns based on difficulty
   const getColumnsCount = () => {
     if (difficulty === "easy") return 4;
@@ -163,6 +170,7 @@ const App = () => {
             id="start-game-btn"
             disabled={!selectedDifficulty}
             onClick={() => startGame(selectedDifficulty)}
+            style={{ display: 'none' }}
           >
             Start Game
           </button>
@@ -170,7 +178,7 @@ const App = () => {
       ) : (
         <>
           <div className="game-info">
-            <h4>{difficulty.toUpperCase()} Mode</h4>
+            <h4>{difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} Mode</h4>
             <h4>Attempts: {attempts}</h4>
             <p>
               Matches: {matchedPairs.length} / {tiles.length / 2}
@@ -193,7 +201,7 @@ const App = () => {
                     <div
                       key={tile.id}
                       data-testid={`tile-${tile.id}`}
-                      className={`cell ${flippedTiles.includes(tile.id) || tile.isMatched
+                      className={`tile ${flippedTiles.includes(tile.id) || tile.isMatched
                         ? "flipped"
                         : ""
                         }`}

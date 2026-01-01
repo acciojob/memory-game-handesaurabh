@@ -58,12 +58,16 @@ const App = () => {
     if (newFlips.length === 2) {
       setAttempts((a) => a + 1);
 
-      const [a, b] = newFlips.map((i) => tiles.find((t) => t.id === i));
+      const [a, b] = newFlips.map((i) =>
+        tiles.find((t) => t.id === i)
+      );
 
       if (a.value === b.value) {
         setTiles((prev) =>
           prev.map((t) =>
-            t.id === a.id || t.id === b.id ? { ...t, isMatched: true } : t
+            t.id === a.id || t.id === b.id
+              ? { ...t, isMatched: true }
+              : t
           )
         );
         setMatchedPairs((p) => [...p, a.value]);
@@ -94,8 +98,9 @@ const App = () => {
       {!difficulty ? (
         <div className="levels_container">
           <h1>Welcome!</h1>
+
           <h4 data-testid="select-difficulty">
-            Select Difficulty Level: <span>0</span>
+            Select Difficulty Level: <span>{selectedDifficulty ? 1 : 0}</span>
           </h4>
 
           <div>
@@ -131,7 +136,6 @@ const App = () => {
               />
               Hard (32 tiles)
             </label>
-
           </div>
 
           <button
@@ -143,16 +147,17 @@ const App = () => {
           </button>
         </div>
       ) : (
-        <div>
+        <>
           <div className="game-info">
             <h4>{difficulty.toUpperCase()} Mode</h4>
             <h4>Attempts: {attempts}</h4>
             <p>
               Matches: {matchedPairs.length} / {tiles.length / 2}
             </p>
-            {!gameCompleted && <button onClick={resetGame}>Reset Game</button>}
+            {!gameCompleted && (
+              <button onClick={resetGame}>Reset Game</button>
+            )}
           </div>
-
 
           {gameCompleted ? (
             <div className="game-completed">
@@ -180,7 +185,7 @@ const App = () => {
               ))}
             </div>
           )}
-        </div>
+        </>
       )}
     </div>
   );
